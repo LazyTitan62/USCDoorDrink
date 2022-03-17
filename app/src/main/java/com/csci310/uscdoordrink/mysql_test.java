@@ -2,6 +2,7 @@ package com.csci310.uscdoordrink;
 
 import java.sql.*;
 
+
 /**
  * A Java MySQL SELECT statement example.
  * Demonstrates the use of a SQL SELECT statement against a
@@ -12,9 +13,8 @@ import java.sql.*;
 public class mysql_test
 {
 
-    public static void main(String[] args)
-    {
-        String url = "jdbc:mysql://uscdoordrink-2.cpcgefjranje.us-west-1.rds.amazonaws.com";
+    public static void main(String[] args) throws SQLException {
+        String url = "jdbc:mysql://uscdoordrink-2.cpcgefjranje.us-west-1.rds.amazonaws.com/sys";
         String username = "admin";
         String password = "12345678";
 
@@ -29,8 +29,23 @@ public class mysql_test
         System.out.println("Connecting database...");
 
 
-        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            if(connection==null){
+                System.out.println("Connection goes wrong");
+                return;
+            }
             System.out.println("Database connected!");
+            Statement stmt = (Statement) connection.createStatement();
+            String query1 = "INSERT INTO InsertDemo (Name,Age)" + "VALUES ('Daniel', 34)";
+            int result = stmt.executeUpdate(query1);
+
+            System.out.println(result);
+
+            query1 = "INSERT INTO InsertDemo (Name, Age)" + "VALUES ('Lily', 42)";
+            stmt.executeUpdate(query1);
+            System.out.println("Record is inserted in the table successfully..................");
+
         } catch (SQLException e) {
             throw new IllegalStateException("Cannot connect the database!", e);
         }
