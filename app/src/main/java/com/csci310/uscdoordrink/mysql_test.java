@@ -30,6 +30,7 @@ public class mysql_test
 
 
         try {
+            //connect to online table 
             Connection connection = DriverManager.getConnection(url, username, password);
             if(connection==null){
                 System.out.println("Connection goes wrong");
@@ -37,14 +38,17 @@ public class mysql_test
             }
             System.out.println("Database connected!");
             Statement stmt = (Statement) connection.createStatement();
-            String query1 = "INSERT INTO InsertDemo (Name,Age)" + "VALUES ('Daniel', 34)";
-            int result = stmt.executeUpdate(query1);
 
-            System.out.println(result);
-
-            query1 = "INSERT INTO InsertDemo (Name, Age)" + "VALUES ('Lily', 42)";
+            //insert into table
+            String query1 = "INSERT INTO InsertDemo (Name, Age)" + "VALUES ('Lily', 42)";
             stmt.executeUpdate(query1);
             System.out.println("Record is inserted in the table successfully..................");
+
+            //update inserted information in the table based on ID
+            PreparedStatement ps = connection.prepareStatement("update InsertDemo set Name=? where Id=?");
+            ps.setString(1, "Leo");
+            ps.setInt(2, 1);
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             throw new IllegalStateException("Cannot connect the database!", e);
