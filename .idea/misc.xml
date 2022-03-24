@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_analysis.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.12228260869565218" />
+        <entry key="app/src/main/res/layout/fragement_daily_layout.xml" value="0.2140625" />
+        <entry key="app/src/main/res/layout/fragement_monthly_layout.xml" value="0.2140625" />
+        <entry key="app/src/main/res/layout/fragement_weekly_layout.xml" value="0.2140625" />
+        <entry key="app/src/main/res/layout/fragment_analysis.xml" value="0.313456902987715" />
       </map>
     </option>
   </component>

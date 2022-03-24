@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">USCDoorDrink</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_analysis">analysisActivity</string>
+    <string name="analysis_page_name">USCDoorDrink - Spending Analysis</string>
+    <string name="tab_daily">Daily</string>
+    <string name="tab_weekly">Weekly</string>
+    <string name="tab_monthly">Monthly</string>
 </resources>
