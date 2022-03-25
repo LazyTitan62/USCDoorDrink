@@ -1,6 +1,6 @@
 package com.csci310.uscdoordrink;
 
-class User {
+public class User {
     private String usrName;
     private String usrPassword;
     private Integer usrID;

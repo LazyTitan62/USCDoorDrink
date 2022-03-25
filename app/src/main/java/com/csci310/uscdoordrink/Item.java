@@ -1,6 +1,6 @@
 package com.csci310.uscdoordrink;
 
-class Item {
+public class Item {
     private String itemName;
     private Double itemPrice;
     private String itemDescription;

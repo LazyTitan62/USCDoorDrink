@@ -2,21 +2,21 @@ package com.csci310.uscdoordrink;
 
 import java.util.ArrayList;
 
-class Merchant extends User {
+public class Merchant extends User {
 
     private Double storeLocLatitude;
-    private Double storeLocLongtitude;
+    private Double storeLocLongitude;
     private ArrayList<Item> menu;
     private ArrayList<Order> merchantOrderHistory;
     private Integer operationStartTime;
     private Integer operationEndTime;
 
-    public Merchant(String name, String pw, Double latitude, Double longtitude, Integer startTime, Integer endTime){
+    public Merchant(String name, String pw, Double latitude, Double longitude, Integer startTime, Integer endTime){
         super(name, pw);
         menu = new ArrayList<Item>();
         merchantOrderHistory = new ArrayList<Order>();
         storeLocLatitude = latitude;
-        storeLocLongtitude = longtitude;
+        storeLocLongitude = longitude;
         operationStartTime = startTime;
         operationEndTime = endTime;
     }
@@ -37,12 +37,12 @@ class Merchant extends User {
         this.storeLocLatitude = storeLocLatitude;
     }
 
-    public Double getStoreLocLongtitude() {
-        return storeLocLongtitude;
+    public Double getStoreLocLongitude() {
+        return storeLocLongitude;
     }
 
-    public void setStoreLocLongtitude(Double storeLocLongtitude) {
-        this.storeLocLongtitude = storeLocLongtitude;
+    public void setStoreLocLongitude(Double storeLocLongitude) {
+        this.storeLocLongitude = storeLocLongitude;
     }
 
     public ArrayList<Item> getMenu() {

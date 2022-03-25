@@ -2,20 +2,20 @@ package com.csci310.uscdoordrink;
 
 import java.util.ArrayList;
 
-class Order {
+public class Order {
     private ArrayList<Item> orderContent = new ArrayList<Item>();
     private DeliveryRoute orderRoute;
     private Integer customerID;
     private Integer merchantID;
-    private Double totalCaffeine;
+    private Integer totalCaffeine;
     private Double totalPrice;
 
     public Order(ArrayList<Item> itemsInOrder, DeliveryRoute deliveryRoute, Integer cusID, Integer merchID){
         orderContent.addAll(itemsInOrder);
-        orderRoute = new DeliveryRoute(deliveryRoute.getStartLocLatitude(), deliveryRoute.getStartLocLongtitude(), deliveryRoute.getDestinationLatitude(), deliveryRoute.getDestinationLongtitude(), deliveryRoute.getOrderPlacedDate(), deliveryRoute.getOrderPlacedTime(), deliveryRoute.getDeliveryDate(), deliveryRoute.getDeliveryTime());
+        orderRoute = new DeliveryRoute(deliveryRoute.getStartLocLatitude(), deliveryRoute.getStartLocLongitude(), deliveryRoute.getDestinationLatitude(), deliveryRoute.getDestinationLongitude(), deliveryRoute.getOrderPlacedDate(), deliveryRoute.getOrderPlacedTime(), deliveryRoute.getDeliveryDate(), deliveryRoute.getDeliveryTime());
         customerID = cusID;
         merchantID = merchID;
-        totalCaffeine = 0.0;
+        totalCaffeine = 0;
         totalPrice = 0.0;
         for (Item item : orderContent){
             totalCaffeine += item.getCaffeineAmount();
@@ -32,7 +32,7 @@ class Order {
     }
 
     public void addRoute(DeliveryRoute route) {
-        orderRoute = new DeliveryRoute(route.getStartLocLatitude(), route.getStartLocLongtitude(), route.getDestinationLatitude(), route.getDestinationLongtitude(), route.getOrderPlacedDate(), route.getOrderPlacedTime(), route.getDeliveryDate(), route.getDeliveryTime());
+        orderRoute = new DeliveryRoute(route.getStartLocLatitude(), route.getStartLocLongitude(), route.getDestinationLatitude(), route.getDestinationLongitude(), route.getOrderPlacedDate(), route.getOrderPlacedTime(), route.getDeliveryDate(), route.getDeliveryTime());
     }
 
     public DeliveryRoute getRoute() {
@@ -55,11 +55,11 @@ class Order {
         this.merchantID = merchantID;
     }
 
-    public Double getTotalCaffeine() {
+    public Integer getTotalCaffeine() {
         return totalCaffeine;
     }
 
-    public void setTotalCaffeine(Double totalCaffeine) {
+    public void setTotalCaffeine(Integer totalCaffeine) {
         this.totalCaffeine = totalCaffeine;
     }
 

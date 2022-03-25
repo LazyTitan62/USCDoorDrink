@@ -1,20 +1,20 @@
 package com.csci310.uscdoordrink;
 
-class DeliveryRoute {
+public class DeliveryRoute {
     private Double startLocLatitude;
-    private Double startLocLongtitude;
+    private Double startLocLongitude;
     private Double destinationLatitude;
-    private Double destinationLongtitude;
+    private Double destinationLongitude;
     private String orderPlacedDate;
     private String orderPlacedTime;
     private String deliveryDate;
     private String deliveryTime;
 
-    public DeliveryRoute(Double startLocLatitude, Double startLocLongtitude, Double destinationLatitude, Double destinationLongtitude, String orderPlacedDate, String orderPlacedTime, String deliveryDate, String deliveryTime) {
+    public DeliveryRoute(Double startLocLatitude, Double startLocLongitude, Double destinationLatitude, Double destinationLongitude, String orderPlacedDate, String orderPlacedTime, String deliveryDate, String deliveryTime) {
         this.startLocLatitude = startLocLatitude;
-        this.startLocLongtitude = startLocLongtitude;
+        this.startLocLongitude = startLocLongitude;
         this.destinationLatitude = destinationLatitude;
-        this.destinationLongtitude = destinationLongtitude;
+        this.destinationLongitude = destinationLongitude;
         this.orderPlacedDate = orderPlacedDate;
         this.orderPlacedTime = orderPlacedTime;
         this.deliveryDate = deliveryDate;
@@ -29,12 +29,12 @@ class DeliveryRoute {
         this.startLocLatitude = startLocLatitude;
     }
 
-    public Double getStartLocLongtitude() {
-        return startLocLongtitude;
+    public Double getStartLocLongitude() {
+        return startLocLongitude;
     }
 
-    public void setStartLocLongtitude(Double startLocLongtitude) {
-        this.startLocLongtitude = startLocLongtitude;
+    public void setStartLocLongitude(Double startLocLongitude) {
+        this.startLocLongitude = startLocLongitude;
     }
 
     public Double getDestinationLatitude() {
@@ -45,12 +45,12 @@ class DeliveryRoute {
         this.destinationLatitude = destinationLatitude;
     }
 
-    public Double getDestinationLongtitude() {
-        return destinationLongtitude;
+    public Double getDestinationLongitude() {
+        return destinationLongitude;
     }
 
-    public void setDestinationLongtitude(Double destinationLongtitude) {
-        this.destinationLongtitude = destinationLongtitude;
+    public void setDestinationLongitude(Double destinationLongitude) {
+        this.destinationLongitude = destinationLongitude;
     }
 
     public String getOrderPlacedDate() {

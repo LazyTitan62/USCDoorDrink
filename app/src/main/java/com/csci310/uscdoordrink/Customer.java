@@ -2,12 +2,12 @@ package com.csci310.uscdoordrink;
 
 import java.util.ArrayList;
 
-class Customer extends User {
+public class Customer extends User {
 
     private Double cusLocLatitude;
-    private Double cusLocLongtitude;
+    private Double cusLocLongitude;
     private Double merchLocLatitude;
-    private Double merchLocLongtitude;
+    private Double merchLocLongitude;
     private Integer caffeineIntake;
     private ArrayList<Order> custOrderHistory;
     private ArrayList<Item> currCart;
@@ -20,9 +20,9 @@ class Customer extends User {
         // TODO: FILL IN THE LOCATION OF THE CUSTOMER
         // TODO: FILL IN THE LOCATION OF THE MERCHANT
         cusLocLatitude = 0.0;
-        cusLocLongtitude = 0.0;
+        cusLocLongitude = 0.0;
         merchLocLatitude = 0.0;
-        merchLocLongtitude = 0.0;
+        merchLocLongitude = 0.0;
     }
 
     public Double getCusLocLatitude() {
@@ -33,12 +33,12 @@ class Customer extends User {
         this.cusLocLatitude = cusLocLatitude;
     }
 
-    public Double getCusLocLongtitude() {
-        return cusLocLongtitude;
+    public Double getCusLocLongitude() {
+        return cusLocLongitude;
     }
 
-    public void setCusLocLongtitude(Double cusLocLongtitude) {
-        this.cusLocLongtitude = cusLocLongtitude;
+    public void setCusLocLongitude(Double cusLocLongitude) {
+        this.cusLocLongitude = cusLocLongitude;
     }
 
     public Double getMerchLocLatitude() {
@@ -49,12 +49,12 @@ class Customer extends User {
         this.merchLocLatitude = merchLocLatitude;
     }
 
-    public Double getMerchLocLongtitude() {
-        return merchLocLongtitude;
+    public Double getMerchLocLongitude() {
+        return merchLocLongitude;
     }
 
-    public void setMerchLocLongtitude(Double merchLocLongtitude) {
-        this.merchLocLongtitude = merchLocLongtitude;
+    public void setMerchLocLongitude(Double merchLocLongitude) {
+        this.merchLocLongitude = merchLocLongitude;
     }
 
     public Integer getCaffeineIntake() {
@@ -93,7 +93,7 @@ class Customer extends User {
         String deliveredDate = "";
         String createdTime = "";
         String deliveredTime = "";
-        DeliveryRoute route = new DeliveryRoute(merchLocLatitude,merchLocLongtitude,cusLocLatitude,cusLocLongtitude,createdDate, createdTime,deliveredDate,deliveredTime);
+        DeliveryRoute route = new DeliveryRoute(merchLocLatitude,merchLocLongitude,cusLocLatitude,cusLocLongitude,createdDate, createdTime,deliveredDate,deliveredTime);
         // TODO: GET CUSID AND MERCHID
         Integer cusID = 0;
         Integer merchID = 0;
