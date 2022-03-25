@@ -14,11 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.USCDoorDrink">
         <activity
+            android:name=".OrderActivity"
+            android:exported="true" />
+        <activity
             android:name=".AnalysisActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_analysis"
             android:theme="@style/Theme.USCDoorDrink.NoActionBar" />
-
         <activity
             android:name=".MapsActivity"
             android:exported="false" />

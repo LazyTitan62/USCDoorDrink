@@ -3,6 +3,7 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_analysis">analysisActivity</string>
     <string name="analysis_page_name">USCDoorDrink - Spending Analysis</string>
+    <string name="order_page_name">Your Order Histories</string>
     <string name="tab_daily">Daily</string>
     <string name="tab_weekly">Weekly</string>
     <string name="tab_monthly">Monthly</string>

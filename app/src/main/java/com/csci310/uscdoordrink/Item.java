@@ -2,10 +2,18 @@ package com.csci310.uscdoordrink;
 
 class Item {
     private String itemName;
-    private Integer itemPrice;
+    private Double itemPrice;
     private String itemDescription;
     private Integer itemQty;
-    private Integer caffeineAmount;
+    private Double caffeineAmount;
+
+    public Item(String itemName, Double itemPrice, String itemDescription, Integer itemQty, Double caffeineAmount) {
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemDescription = itemDescription;
+        this.itemQty = itemQty;
+        this.caffeineAmount = caffeineAmount;
+    }
 
     public String getItemName() {
         return itemName;
@@ -15,11 +23,11 @@ class Item {
         this.itemName = itemName;
     }
 
-    public Integer getItemPrice() {
+    public Double getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(Integer itemPrice) {
+    public void setItemPrice(Double itemPrice) {
         this.itemPrice = itemPrice;
     }
 
@@ -39,11 +47,11 @@ class Item {
         this.itemQty = itemQty;
     }
 
-    public Integer getCaffeineAmount() {
+    public Double getCaffeineAmount() {
         return caffeineAmount;
     }
 
-    public void setCaffeineAmount(Integer caffeineAmount) {
+    public void setCaffeineAmount(Double caffeineAmount) {
         this.caffeineAmount = caffeineAmount;
     }
 }

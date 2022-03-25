@@ -7,16 +7,19 @@ class Order {
     private DeliveryRoute orderRoute;
     private Integer customerID;
     private Integer merchantID;
-    private Integer totalCaffeine;
+    private Double totalCaffeine;
+    private Double totalPrice;
 
     public Order(ArrayList<Item> itemsInOrder, DeliveryRoute deliveryRoute, Integer cusID, Integer merchID){
         orderContent.addAll(itemsInOrder);
         orderRoute = new DeliveryRoute(deliveryRoute.getStartLoc(), deliveryRoute.getDestination(), deliveryRoute.getOrderPlacedTime(), deliveryRoute.getDeliveryTime());
         customerID = cusID;
         merchantID = merchID;
-        totalCaffeine = 0;
+        totalCaffeine = 0.0;
+        totalPrice = 0.0;
         for (Item item : orderContent){
             totalCaffeine += item.getCaffeineAmount();
+            totalPrice += item.getItemPrice() * item.getItemQty();
         }
     }
 
@@ -52,11 +55,28 @@ class Order {
         this.merchantID = merchantID;
     }
 
-    public Integer getTotalCaffeine() {
+    public Double getTotalCaffeine() {
         return totalCaffeine;
     }
 
-    public void setTotalCaffeine(Integer totalCaffeine) {
+    public void setTotalCaffeine(Double totalCaffeine) {
         this.totalCaffeine = totalCaffeine;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String contentsToString(){
+        String itemsInfo = "";
+        for (Item i: orderContent){
+            itemsInfo += Integer.toString(i.getItemQty()) + " x " + i.getItemName() + "\n";
+        }
+        itemsInfo += "Total: " + totalPrice;
+        return itemsInfo;
     }
 }

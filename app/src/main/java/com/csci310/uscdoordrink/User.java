@@ -8,7 +8,7 @@ class User {
     public User(String name, String pw){
         usrName = name;
         usrPassword = pw;
-        // TO DO: FILL IN THE QUERY FOR USERID
+        // TODO: FILL IN THE QUERY FOR USERID
         usrID = 0;
     }
 
