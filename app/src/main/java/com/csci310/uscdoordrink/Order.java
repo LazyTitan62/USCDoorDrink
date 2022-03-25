@@ -2,21 +2,24 @@ package com.csci310.uscdoordrink;
 
 import java.util.ArrayList;
 
-class Order {
+public class Order {
     private ArrayList<Item> orderContent = new ArrayList<Item>();
     private DeliveryRoute orderRoute;
     private Integer customerID;
     private Integer merchantID;
     private Integer totalCaffeine;
+    private Double totalPrice;
 
     public Order(ArrayList<Item> itemsInOrder, DeliveryRoute deliveryRoute, Integer cusID, Integer merchID){
         orderContent.addAll(itemsInOrder);
-        orderRoute = new DeliveryRoute(deliveryRoute.getStartLoc(), deliveryRoute.getDestination(), deliveryRoute.getOrderPlacedTime(), deliveryRoute.getDeliveryTime());
+        orderRoute = new DeliveryRoute(deliveryRoute.getStartLocLatitude(), deliveryRoute.getStartLocLongitude(), deliveryRoute.getDestinationLatitude(), deliveryRoute.getDestinationLongitude(), deliveryRoute.getOrderPlacedDate(), deliveryRoute.getOrderPlacedTime(), deliveryRoute.getDeliveryDate(), deliveryRoute.getDeliveryTime());
         customerID = cusID;
         merchantID = merchID;
         totalCaffeine = 0;
+        totalPrice = 0.0;
         for (Item item : orderContent){
             totalCaffeine += item.getCaffeineAmount();
+            totalPrice += item.getItemPrice() * item.getItemQty();
         }
     }
 
@@ -29,7 +32,7 @@ class Order {
     }
 
     public void addRoute(DeliveryRoute route) {
-        orderRoute = new DeliveryRoute(route.getStartLoc(), route.getDestination(), route.getOrderPlacedTime(), route.getDeliveryTime());
+        orderRoute = new DeliveryRoute(route.getStartLocLatitude(), route.getStartLocLongitude(), route.getDestinationLatitude(), route.getDestinationLongitude(), route.getOrderPlacedDate(), route.getOrderPlacedTime(), route.getDeliveryDate(), route.getDeliveryTime());
     }
 
     public DeliveryRoute getRoute() {
@@ -58,5 +61,22 @@ class Order {
 
     public void setTotalCaffeine(Integer totalCaffeine) {
         this.totalCaffeine = totalCaffeine;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String contentsToString(){
+        String itemsInfo = "";
+        for (Item i: orderContent){
+            itemsInfo += Integer.toString(i.getItemQty()) + " x " + i.getItemName() + "\n";
+        }
+        itemsInfo += "Total: " + totalPrice;
+        return itemsInfo;
     }
 }

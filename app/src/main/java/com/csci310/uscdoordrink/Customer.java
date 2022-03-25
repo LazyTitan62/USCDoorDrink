@@ -2,10 +2,12 @@ package com.csci310.uscdoordrink;
 
 import java.util.ArrayList;
 
-class Customer extends User {
+public class Customer extends User {
 
-    private String cusLoc;
-    private String merchLoc;
+    private Double cusLocLatitude;
+    private Double cusLocLongitude;
+    private Double merchLocLatitude;
+    private Double merchLocLongitude;
     private Integer caffeineIntake;
     private ArrayList<Order> custOrderHistory;
     private ArrayList<Item> currCart;
@@ -17,16 +19,42 @@ class Customer extends User {
         currCart = new ArrayList<Item>();
         // TODO: FILL IN THE LOCATION OF THE CUSTOMER
         // TODO: FILL IN THE LOCATION OF THE MERCHANT
-        cusLoc = "";
-        merchLoc = "";
+        cusLocLatitude = 0.0;
+        cusLocLongitude = 0.0;
+        merchLocLatitude = 0.0;
+        merchLocLongitude = 0.0;
     }
 
-    public String getCusLoc() {
-        return cusLoc;
+    public Double getCusLocLatitude() {
+        return cusLocLatitude;
     }
 
-    public void setCusLoc(String cusLoc) {
-        this.cusLoc = cusLoc;
+    public void setCusLocLatitude(Double cusLocLatitude) {
+        this.cusLocLatitude = cusLocLatitude;
+    }
+
+    public Double getCusLocLongitude() {
+        return cusLocLongitude;
+    }
+
+    public void setCusLocLongitude(Double cusLocLongitude) {
+        this.cusLocLongitude = cusLocLongitude;
+    }
+
+    public Double getMerchLocLatitude() {
+        return merchLocLatitude;
+    }
+
+    public void setMerchLocLatitude(Double merchLocLatitude) {
+        this.merchLocLatitude = merchLocLatitude;
+    }
+
+    public Double getMerchLocLongitude() {
+        return merchLocLongitude;
+    }
+
+    public void setMerchLocLongitude(Double merchLocLongitude) {
+        this.merchLocLongitude = merchLocLongitude;
     }
 
     public Integer getCaffeineIntake() {
@@ -61,9 +89,11 @@ class Customer extends User {
         // TODO: GET MERCHANT LOCATION
         // TODO: GET ORDER CREATED TIME
         // TODO: GET ORDER DELIVERY TIME
+        String createdDate = "";
+        String deliveredDate = "";
         String createdTime = "";
         String deliveredTime = "";
-        DeliveryRoute route = new DeliveryRoute(merchLoc,cusLoc,createdTime,deliveredTime);
+        DeliveryRoute route = new DeliveryRoute(merchLocLatitude,merchLocLongitude,cusLocLatitude,cusLocLongitude,createdDate, createdTime,deliveredDate,deliveredTime);
         // TODO: GET CUSID AND MERCHID
         Integer cusID = 0;
         Integer merchID = 0;

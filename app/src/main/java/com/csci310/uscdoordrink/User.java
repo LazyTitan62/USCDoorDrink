@@ -1,6 +1,6 @@
 package com.csci310.uscdoordrink;
 
-class User {
+public class User {
     private String usrName;
     private String usrPassword;
     private Integer usrID;
@@ -8,7 +8,7 @@ class User {
     public User(String name, String pw){
         usrName = name;
         usrPassword = pw;
-        // TO DO: FILL IN THE QUERY FOR USERID
+        // TODO: FILL IN THE QUERY FOR USERID
         usrID = 0;
     }
 
