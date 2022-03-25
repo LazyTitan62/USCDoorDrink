@@ -4,16 +4,19 @@ import java.util.ArrayList;
 
 class Merchant extends User {
 
-    private String storeLoc;
+    private Double storeLocLatitude;
+    private Double storeLocLongtitude;
     private ArrayList<Item> menu;
     private ArrayList<Order> merchantOrderHistory;
     private Integer operationStartTime;
     private Integer operationEndTime;
 
-    public Merchant(String name, String pw, String loc, Integer startTime, Integer endTime){
+    public Merchant(String name, String pw, Double latitude, Double longtitude, Integer startTime, Integer endTime){
         super(name, pw);
         menu = new ArrayList<Item>();
         merchantOrderHistory = new ArrayList<Order>();
+        storeLocLatitude = latitude;
+        storeLocLongtitude = longtitude;
         operationStartTime = startTime;
         operationEndTime = endTime;
     }
@@ -26,12 +29,20 @@ class Merchant extends User {
         super.setUsrName(name);
     }
 
-    public String getStoreLoc() {
-        return storeLoc;
+    public Double getStoreLocLatitude() {
+        return storeLocLatitude;
     }
 
-    public void setStoreLoc(String storeLoc) {
-        this.storeLoc = storeLoc;
+    public void setStoreLocLatitude(Double storeLocLatitude) {
+        this.storeLocLatitude = storeLocLatitude;
+    }
+
+    public Double getStoreLocLongtitude() {
+        return storeLocLongtitude;
+    }
+
+    public void setStoreLocLongtitude(Double storeLocLongtitude) {
+        this.storeLocLongtitude = storeLocLongtitude;
     }
 
     public ArrayList<Item> getMenu() {

@@ -33,10 +33,10 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void CreateDataForCards() {
-        Item mocha = new Item("Mocha", 2.49, "Drink",1,2.0);
-        Item mocha2 = new Item("Mocha", 2.49, "Drink",2,2.0);
-        Item cupp = new Item("Cuppucino", 5.49, "Drink",1,1.5);
-        Item tea = new Item("Tea", 1.99, "Drink",2,3.0);
+        Item mocha = new Item("Mocha", 2.49, "Drink",1,20);
+        Item mocha2 = new Item("Mocha", 2.49, "Drink",2,20);
+        Item cupp = new Item("Cuppucino", 5.49, "Drink",1,15);
+        Item tea = new Item("Tea", 1.99, "Drink",2,30);
 
         ArrayList<Item> items = new ArrayList<>();
         items.add(mocha);
@@ -44,7 +44,7 @@ public class OrderActivity extends AppCompatActivity {
         items.add(cupp);
         items.add(tea);
 
-        DeliveryRoute deliveryRoute = new DeliveryRoute("Home", "Res","2022/3/24/20:46", "2022/3/24/20:58");
+        DeliveryRoute deliveryRoute = new DeliveryRoute(0.0,0.0,0.0,0.0,"2022-3-24","20:46", "2022-3-24", "20:58");
 
         Order order = new Order(items,deliveryRoute,001,007);
         ordersArrayList.add(order);

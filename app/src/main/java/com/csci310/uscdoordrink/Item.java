@@ -5,9 +5,9 @@ class Item {
     private Double itemPrice;
     private String itemDescription;
     private Integer itemQty;
-    private Double caffeineAmount;
+    private Integer caffeineAmount;
 
-    public Item(String itemName, Double itemPrice, String itemDescription, Integer itemQty, Double caffeineAmount) {
+    public Item(String itemName, Double itemPrice, String itemDescription, Integer itemQty, Integer caffeineAmount) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemDescription = itemDescription;
@@ -47,11 +47,11 @@ class Item {
         this.itemQty = itemQty;
     }
 
-    public Double getCaffeineAmount() {
+    public Integer getCaffeineAmount() {
         return caffeineAmount;
     }
 
-    public void setCaffeineAmount(Double caffeineAmount) {
+    public void setCaffeineAmount(Integer caffeineAmount) {
         this.caffeineAmount = caffeineAmount;
     }
 }

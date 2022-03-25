@@ -12,7 +12,7 @@ class Order {
 
     public Order(ArrayList<Item> itemsInOrder, DeliveryRoute deliveryRoute, Integer cusID, Integer merchID){
         orderContent.addAll(itemsInOrder);
-        orderRoute = new DeliveryRoute(deliveryRoute.getStartLoc(), deliveryRoute.getDestination(), deliveryRoute.getOrderPlacedTime(), deliveryRoute.getDeliveryTime());
+        orderRoute = new DeliveryRoute(deliveryRoute.getStartLocLatitude(), deliveryRoute.getStartLocLongtitude(), deliveryRoute.getDestinationLatitude(), deliveryRoute.getDestinationLongtitude(), deliveryRoute.getOrderPlacedDate(), deliveryRoute.getOrderPlacedTime(), deliveryRoute.getDeliveryDate(), deliveryRoute.getDeliveryTime());
         customerID = cusID;
         merchantID = merchID;
         totalCaffeine = 0.0;
@@ -32,7 +32,7 @@ class Order {
     }
 
     public void addRoute(DeliveryRoute route) {
-        orderRoute = new DeliveryRoute(route.getStartLoc(), route.getDestination(), route.getOrderPlacedTime(), route.getDeliveryTime());
+        orderRoute = new DeliveryRoute(route.getStartLocLatitude(), route.getStartLocLongtitude(), route.getDestinationLatitude(), route.getDestinationLongtitude(), route.getOrderPlacedDate(), route.getOrderPlacedTime(), route.getDeliveryDate(), route.getDeliveryTime());
     }
 
     public DeliveryRoute getRoute() {
