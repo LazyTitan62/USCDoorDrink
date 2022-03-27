@@ -1,56 +1,78 @@
 package com.csci310.uscdoordrink;
 
-public class DeliveryRoute {
-    private Double startLocLatitude;
-    private Double startLocLongitude;
-    private Double destinationLatitude;
-    private Double destinationLongitude;
+import java.io.Serializable;
+
+public class DeliveryRoute implements Serializable {
+    private String merchantUsrName;
+    private Float merchantLocLatitude;
+    private Float merchantLocLongitude;
+    private String customerUsrName;
+    private Float customerLatitude;
+    private Float customerLongitude;
     private String orderPlacedDate;
     private String orderPlacedTime;
     private String deliveryDate;
     private String deliveryTime;
 
-    public DeliveryRoute(Double startLocLatitude, Double startLocLongitude, Double destinationLatitude, Double destinationLongitude, String orderPlacedDate, String orderPlacedTime, String deliveryDate, String deliveryTime) {
-        this.startLocLatitude = startLocLatitude;
-        this.startLocLongitude = startLocLongitude;
-        this.destinationLatitude = destinationLatitude;
-        this.destinationLongitude = destinationLongitude;
+    public DeliveryRoute(String merchantUsrName, Float merchantLocLatitude, Float merchantLocLongitude, String customerUsrName, Float customerLatitude, Float customerLongitude, String orderPlacedDate, String orderPlacedTime, String deliveryDate, String deliveryTime) {
+        this.merchantUsrName = merchantUsrName;
+        this.merchantLocLatitude = merchantLocLatitude;
+        this.merchantLocLongitude = merchantLocLongitude;
+        this.customerUsrName = customerUsrName;
+        this.customerLatitude = customerLatitude;
+        this.customerLongitude = customerLongitude;
         this.orderPlacedDate = orderPlacedDate;
         this.orderPlacedTime = orderPlacedTime;
         this.deliveryDate = deliveryDate;
         this.deliveryTime = deliveryTime;
     }
 
-    public Double getStartLocLatitude() {
-        return startLocLatitude;
+    public String getMerchantUsrName() {
+        return merchantUsrName;
     }
 
-    public void setStartLocLatitude(Double startLocLatitude) {
-        this.startLocLatitude = startLocLatitude;
+    public void setMerchantUsrName(String merchantUsrName) {
+        this.merchantUsrName = merchantUsrName;
     }
 
-    public Double getStartLocLongitude() {
-        return startLocLongitude;
+    public Float getMerchantLocLatitude() {
+        return merchantLocLatitude;
     }
 
-    public void setStartLocLongitude(Double startLocLongitude) {
-        this.startLocLongitude = startLocLongitude;
+    public void setMerchantLocLatitude(Float merchantLocLatitude) {
+        this.merchantLocLatitude = merchantLocLatitude;
     }
 
-    public Double getDestinationLatitude() {
-        return destinationLatitude;
+    public Float getMerchantLocLongitude() {
+        return merchantLocLongitude;
     }
 
-    public void setDestinationLatitude(Double destinationLatitude) {
-        this.destinationLatitude = destinationLatitude;
+    public void setMerchantLocLongitude(Float merchantLocLongitude) {
+        this.merchantLocLongitude = merchantLocLongitude;
     }
 
-    public Double getDestinationLongitude() {
-        return destinationLongitude;
+    public String getCustomerUsrName() {
+        return customerUsrName;
     }
 
-    public void setDestinationLongitude(Double destinationLongitude) {
-        this.destinationLongitude = destinationLongitude;
+    public void setCustomerUsrName(String customerUsrName) {
+        this.customerUsrName = customerUsrName;
+    }
+
+    public Float getCustomerLatitude() {
+        return customerLatitude;
+    }
+
+    public void setCustomerLatitude(Float customerLatitude) {
+        this.customerLatitude = customerLatitude;
+    }
+
+    public Float getCustomerLongitude() {
+        return customerLongitude;
+    }
+
+    public void setCustomerLongitude(Float customerLongitude) {
+        this.customerLongitude = customerLongitude;
     }
 
     public String getOrderPlacedDate() {

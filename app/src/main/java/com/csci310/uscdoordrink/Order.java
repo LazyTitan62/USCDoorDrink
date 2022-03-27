@@ -1,58 +1,41 @@
 package com.csci310.uscdoordrink;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
-    private ArrayList<Item> orderContent = new ArrayList<Item>();
-    private DeliveryRoute orderRoute;
-    private Integer customerID;
-    private Integer merchantID;
-    private Integer totalCaffeine;
-    private Double totalPrice;
+public class Order implements Serializable {
+    private ArrayList<Item> orderItems = new ArrayList<Item>();
+    private DeliveryRoute deliveryRoute;
+    private Integer totalCaffeine = 0;
+    private Float totalPrice = 0f;
 
-    public Order(ArrayList<Item> itemsInOrder, DeliveryRoute deliveryRoute, Integer cusID, Integer merchID){
-        orderContent.addAll(itemsInOrder);
-        orderRoute = new DeliveryRoute(deliveryRoute.getStartLocLatitude(), deliveryRoute.getStartLocLongitude(), deliveryRoute.getDestinationLatitude(), deliveryRoute.getDestinationLongitude(), deliveryRoute.getOrderPlacedDate(), deliveryRoute.getOrderPlacedTime(), deliveryRoute.getDeliveryDate(), deliveryRoute.getDeliveryTime());
-        customerID = cusID;
-        merchantID = merchID;
-        totalCaffeine = 0;
-        totalPrice = 0.0;
-        for (Item item : orderContent){
-            totalCaffeine += item.getCaffeineAmount();
-            totalPrice += item.getItemPrice() * item.getItemQty();
+    public Order(ArrayList<Item> orderItems, DeliveryRoute deliveryRoute) {
+        this.orderItems = orderItems;
+        this.deliveryRoute = deliveryRoute;
+        for (Item i:orderItems){
+            totalCaffeine += i.getItemCaffeine() * i.getItemQtyInOrder();
+            totalPrice += i.getItemPrice() * i.getItemQtyInOrder();
         }
     }
 
-    public void addContent(Item item){
-        orderContent.add(item);
+    public ArrayList<Item> getOrderItems() {
+        return orderItems;
     }
 
-    public ArrayList<Item> getContent() {
-        return orderContent;
+    public void setOrderItems(ArrayList<Item> orderItems) {
+        this.orderItems = orderItems;
     }
 
-    public void addRoute(DeliveryRoute route) {
-        orderRoute = new DeliveryRoute(route.getStartLocLatitude(), route.getStartLocLongitude(), route.getDestinationLatitude(), route.getDestinationLongitude(), route.getOrderPlacedDate(), route.getOrderPlacedTime(), route.getDeliveryDate(), route.getDeliveryTime());
+    public void addOrderItem(Item item){
+        orderItems.add(item);
     }
 
-    public DeliveryRoute getRoute() {
-        return orderRoute;
+    public DeliveryRoute getDeliveryRoute() {
+        return deliveryRoute;
     }
 
-    public Integer getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(Integer customerID) {
-        this.customerID = customerID;
-    }
-
-    public Integer getMerchantID() {
-        return merchantID;
-    }
-
-    public void setMerchantID(Integer merchantID) {
-        this.merchantID = merchantID;
+    public void setDeliveryRoute(DeliveryRoute deliveryRoute) {
+        this.deliveryRoute = deliveryRoute;
     }
 
     public Integer getTotalCaffeine() {
@@ -63,20 +46,20 @@ public class Order {
         this.totalCaffeine = totalCaffeine;
     }
 
-    public Double getTotalPrice() {
+    public Float getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(Float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public String contentsToString(){
-        String itemsInfo = "";
-        for (Item i: orderContent){
-            itemsInfo += Integer.toString(i.getItemQty()) + " x " + i.getItemName() + "\n";
+    public String orderToString(){
+        String itemsInfo = "\n";
+        for (Item i: orderItems){
+            itemsInfo += Integer.toString(i.getItemQtyInOrder()) + " x " + i.getItemName() + "\n";
         }
-        itemsInfo += "Total: " + totalPrice;
+        itemsInfo += "\nTotal: " + totalPrice;
         return itemsInfo;
     }
 }
