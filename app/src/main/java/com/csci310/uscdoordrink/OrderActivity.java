@@ -1,5 +1,6 @@
 package com.csci310.uscdoordrink;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class OrderActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private CardAdapter adapter;
+    private OrderCardAdapter adapter;
     private ArrayList<Order> ordersArrayList;
 
     @Override
@@ -18,25 +19,28 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        InitializeCardView();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Your Order Histories");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        InitializeOrderCardView();
     }
 
-    private void InitializeCardView() {
+    private void InitializeOrderCardView() {
         recyclerView = findViewById(R.id.order_hist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ordersArrayList = new ArrayList<Order>();
-        
-        adapter = new CardAdapter(this,ordersArrayList);
+
+        adapter = new OrderCardAdapter(this,ordersArrayList);
         recyclerView.setAdapter(adapter);
-        
+
         CreateDataForCards();
     }
 
     private void CreateDataForCards() {
-        Item mocha = new Item("Mocha", 2.49, "Drink",1,20);
-        Item mocha2 = new Item("Mocha", 2.49, "Drink",2,20);
-        Item cupp = new Item("Cuppucino", 5.49, "Drink",1,15);
-        Item tea = new Item("Tea", 1.99, "Drink",2,30);
+        Item mocha = new Item("Mocha", 2.49f, 1,20);
+        Item mocha2 = new Item("Mocha", 2.49f, 2,20);
+        Item cupp = new Item("Cuppucino", 5.49f,1,15);
+        Item tea = new Item("Tea", 1.99f,2,30);
 
         ArrayList<Item> items = new ArrayList<>();
         items.add(mocha);
@@ -44,27 +48,27 @@ public class OrderActivity extends AppCompatActivity {
         items.add(cupp);
         items.add(tea);
 
-        DeliveryRoute deliveryRoute = new DeliveryRoute(0.0,0.0,0.0,0.0,"2022-3-24","20:46", "2022-3-24", "20:58");
+        DeliveryRoute deliveryRoute = new DeliveryRoute("Haha", 0.0f,0.0f,"Lolo", 0.0f,0.0f,"2022-3-24","20:46", "2022-3-24", "20:58");
 
-        Order order = new Order(items,deliveryRoute,001,007);
+        Order order = new Order(items,deliveryRoute);
         ordersArrayList.add(order);
 
-        order = new Order(items,deliveryRoute,002,003);
+        order = new Order(items,deliveryRoute);
         ordersArrayList.add(order);
 
-        order = new Order(items,deliveryRoute,012,044);
+        order = new Order(items,deliveryRoute);
         ordersArrayList.add(order);
 
-        order = new Order(items,deliveryRoute,062,027);
+        order = new Order(items,deliveryRoute);
         ordersArrayList.add(order);
 
-        order = new Order(items,deliveryRoute,042,046);
+        order = new Order(items,deliveryRoute);
         ordersArrayList.add(order);
 
-        order = new Order(items,deliveryRoute,102,103);
+        order = new Order(items,deliveryRoute);
         ordersArrayList.add(order);
 
-        order = new Order(items,deliveryRoute,222,333);
+        order = new Order(items,deliveryRoute);
         ordersArrayList.add(order);
 
         adapter.notifyDataSetChanged();

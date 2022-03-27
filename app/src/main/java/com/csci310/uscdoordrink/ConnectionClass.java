@@ -19,7 +19,7 @@ public class ConnectionClass extends Throwable{
     static String password = "12345678";
     @SuppressLint("NewApi")
     public static Connection CONN() {
-            Connection connection=null;
+        Connection connection=null;
         {
             try {
                 Class.forName("com.mysql.jdbc.Driver");

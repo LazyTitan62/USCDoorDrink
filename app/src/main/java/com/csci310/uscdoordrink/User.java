@@ -1,16 +1,19 @@
 package com.csci310.uscdoordrink;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String usrName;
     private String usrPassword;
-    private Integer usrID;
 
     public User(String name, String pw){
         usrName = name;
         usrPassword = pw;
-        // TODO: FILL IN THE QUERY FOR USERID
-        usrID = 0;
     }
+
 
     public String getUsrName() {
         return usrName;
@@ -26,14 +29,6 @@ public class User {
 
     public void setUsrPassword(String usrPassword) {
         this.usrPassword = usrPassword;
-    }
-
-    public Integer getUsrID() {
-        return usrID;
-    }
-
-    public void setUsrID(Integer usrID) {
-        this.usrID = usrID;
     }
 
 }

@@ -21,7 +21,7 @@ public class insert{
         {
             Connection con= CONN();
 //            connection =conStr.CONN();
-            String query = "INSERT INTO InsertDemo (Name, Age)" + "VALUES ('Sam', 18)";
+            String query = "INSERT INTO InsertDemo (Name, Age)" + "VALUES ('William', 200)";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
         }

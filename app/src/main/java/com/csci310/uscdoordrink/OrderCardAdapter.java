@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.OrderHolder> {
+public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardAdapter.OrderHolder> {
 
     private Context context;
     private ArrayList<Order> orders;
 
-    public CardAdapter(Context context, ArrayList<Order> orders) {
+    public OrderCardAdapter(Context context, ArrayList<Order> orders) {
         this.context = context;
         this.orders = orders;
     }
@@ -25,7 +25,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.OrderHolder> {
     @NonNull
     @Override
     public OrderHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.card_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.order_card_item,parent,false);
         return new OrderHolder(view);
     }
 
@@ -52,8 +52,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.OrderHolder> {
         }
 
         void setDetails(Order order){
-            from.setText(String.format(Locale.US,"From: %d", order.getDeliveryRoute().getMerchantLocLatitude()));
-            to.setText(String.format(Locale.US,"To: %d", order.getDeliveryRoute().getCustomerLatitude()));
+            from.setText(String.format(Locale.US,"From: %f", order.getDeliveryRoute().getMerchantLocLatitude()));
+            to.setText(String.format(Locale.US,"To: %f", order.getDeliveryRoute().getCustomerLatitude()));
             items.setText(order.orderToString());
 
         }
