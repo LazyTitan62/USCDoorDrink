@@ -41,7 +41,7 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardAdapter.Orde
     }
 
     class OrderHolder extends RecyclerView.ViewHolder{
-        private TextView from, to, items;
+        private TextView from, to, created, delivered, items;
 
 
         OrderHolder(View itemView){
@@ -49,13 +49,16 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardAdapter.Orde
             from = itemView.findViewById(R.id.from);
             to = itemView.findViewById(R.id.to);
             items = itemView.findViewById(R.id.items);
+            created = itemView.findViewById(R.id.created);
+            delivered = itemView.findViewById(R.id.delivered);
         }
 
         void setDetails(Order order){
-            from.setText(String.format(Locale.US,"From: %f", order.getDeliveryRoute().getMerchantLocLatitude()));
-            to.setText(String.format(Locale.US,"To: %f", order.getDeliveryRoute().getCustomerLatitude()));
+            from.setText("From: " + order.getDeliveryRoute().getMerchantUsrName());
+            to.setText("To: " + order.getDeliveryRoute().getCustomerUsrName());
+            created.setText("Placed time: " + order.getDeliveryRoute().getOrderPlacedDate() + " " + order.getDeliveryRoute().getOrderPlacedTime());
+            delivered.setText("Delivered time: " + order.getDeliveryRoute().getDeliveryDate() + " " + order.getDeliveryRoute().getDeliveryTime());
             items.setText(order.orderToString());
-
         }
     }
 }

@@ -41,10 +41,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new FragmentDaily(userName, date);
                 break;
             case 1:
-                fragment = new FragmentWeekly();
+                fragment = new FragmentWeekly(userName, date);
                 break;
             case 2:
-                fragment = new FragmentMonthly();
+                fragment = new FragmentMonthly(userName, date);
                 break;
         }
         return fragment;

@@ -15,26 +15,28 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
+    private Customer customer;
     private RecyclerView checkoutRecyclerView;
     private TextView orderTotal, orderTotalAmount, buttonPlaceOrder, caffineIntakeSummary;
     private CheckoutCardAdapter checkoutCardAdapter;
     private final Integer USDA_CAFFEINE = 400;
     private Boolean waringIgnored = false;
-
-//    private Handler handler = new Handler(){
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            switch (msg.what){
-//                case 0:
-//                    customer.resetCaffeineIntake();
-//                    break;
-//            }
-//        }
-//    };
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    customer.resetCaffeineIntake();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         Merchant  merchant= (Merchant) getIntent().getSerializableExtra("Merchant");
-        Customer customer = (Customer) getIntent().getSerializableExtra("Customer");
+        customer = (Customer) getIntent().getSerializableExtra("Customer");
         ArrayList<Item> menu = customer.getCurrCart();
 
         ActionBar actionBar = getSupportActionBar();
@@ -60,13 +62,15 @@ public class CheckoutActivity extends AppCompatActivity {
         buttonPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String date = "";
-//                new Thread(() -> {
-//                    Query q = new Query();
-//                    if (q.checkCaffeineUpdate(date,customer)){
-//                        handler.sendEmptyMessage(0);
-//                    }
-//                }).start();
+                LocalDate dateObj = LocalDate.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String date = dateObj.format(formatter);
+                new Thread(() -> {
+                    Query q = new Query();
+                    if (q.checkCaffeineUpdate(date,customer)){
+                        handler.sendEmptyMessage(0);
+                    }
+                }).start();
                 onPlaceOrderButtonClick(merchant, customer, caffeine);
             }
         });

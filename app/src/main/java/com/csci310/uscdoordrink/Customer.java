@@ -1,6 +1,9 @@
 package com.csci310.uscdoordrink;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -58,17 +61,25 @@ public class Customer extends User implements Serializable {
     }
 
     public Order checkout(Merchant merchant, Customer customer) {
-        // TODO: GET ORDER CREATED DATE AND TIME
+
         // TODO: GET CUSTOMER LOCATION
-        String createdDate = "";
+        LocalDate dateObj = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String createdDate = dateObj.format(formatter);
+
+        LocalTime timeObject = LocalTime.now();
+        DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String createdTime = timeObject.format(formatterTime);
+
+        // TODO: GET ORDER CREATED DATE AND TIME
         String deliveredDate = "";
-        String createdTime = "";
+
         String deliveredTime = "";
         Float merchLocLatitude = merchant.getStoreLocLatitude();
         Float merchLocLongitude = merchant.getStoreLocLongitude();
         Float cusLocLatitude = 0f;
         Float cusLocLongitude = 0f;
-        DeliveryRoute route = new DeliveryRoute(merchant.getUsrName(),merchLocLatitude,merchLocLongitude,customer.getUsrName(),cusLocLatitude,cusLocLongitude,createdDate, createdTime,deliveredDate,deliveredTime);
+        DeliveryRoute route = new DeliveryRoute(merchant.getUsrName(), customer.getUsrName(), createdDate, createdTime,deliveredDate,deliveredTime);
         Order order = new Order(currCart,route);
         merchant.addMerchantOrder(order);
         customer.addCustomerOrder(order);

@@ -48,7 +48,7 @@ public class OrderActivity extends AppCompatActivity {
         items.add(cupp);
         items.add(tea);
 
-        DeliveryRoute deliveryRoute = new DeliveryRoute("Haha", 0.0f,0.0f,"Lolo", 0.0f,0.0f,"2022-3-24","20:46", "2022-3-24", "20:58");
+        DeliveryRoute deliveryRoute = new DeliveryRoute("Haha","Lolo","2022-3-24","20:46:22", "2022-3-24", "20:58:46");
 
         Order order = new Order(items,deliveryRoute);
         ordersArrayList.add(order);

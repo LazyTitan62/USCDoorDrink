@@ -40,7 +40,7 @@ public class FragmentDaily extends Fragment {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-                    setChart(chart);
+                    setDailyChart(chart);
                     break;
             }
         }
@@ -57,14 +57,13 @@ public class FragmentDaily extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragement_daily_layout,container, false);
         chart = (BarChart) view.findViewById(R.id.DailyBarChart);
-        chart.getDescription().setText("Your spending today");
         new Thread(() -> {
             Query q = new Query();
             HashMap<String, Float> hm = q.getDailyAnalysis(userName,date);
             int i = 0;
             for (Map.Entry<String, Float> set : hm.entrySet()) {
                 xVals.add(set.getKey());
-                yVals.add(new BarEntry(i,set.getValue()));
+                yVals.add(new BarEntry(i,(float)set.getValue()));
                 i++;
             }
             handler.sendEmptyMessage(0);
@@ -92,7 +91,14 @@ public class FragmentDaily extends Fragment {
         return view;
     }
 
-    public void setChart(BarChart chart){
+    public void setDailyChart(BarChart chart){
+        if (xVals.isEmpty()){
+            chart.getDescription().setText("You have no spending today!");
+        }
+        else{
+            chart.getDescription().setText("Your spending today");
+        }
+
         BarDataSet set;
         set = new BarDataSet(yVals, "Merchant");
         set.setColors(ColorTemplate.COLORFUL_COLORS);
