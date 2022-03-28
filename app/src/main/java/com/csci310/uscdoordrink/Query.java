@@ -22,14 +22,14 @@ public class Query {
 //    Connection connection;
 
 
-    public ArrayList<Item> getMenuFromDatabase(Merchant m)
+    public ArrayList<Item> getMenuFromDatabase(String merchantName)
     {
         ArrayList<Item> items = new ArrayList<>();
         try
         {
             Connection con= CONN();
 //          connection =conStr.CONN();
-            String query = "SELECT * FROM MENU WHERE UserName = 'OhYeah'";
+            String query = "SELECT * FROM MENU WHERE UserName = '" + merchantName + "'";
             Statement stmt = con.prepareStatement(query);
             ResultSet result = stmt.executeQuery(query);
             while (result.next()){
@@ -47,12 +47,79 @@ public class Query {
         return items;
     }
 
+    public ArrayList<Order> getOrderFromDatabase(String userName, Boolean isMerchant)
+    {
+        ArrayList<Integer> orderIDList = new ArrayList<>();
+        ArrayList<Order> orders = new ArrayList<>();
+        try
+        {
+            Connection con= CONN();
+//          connection =conStr.CONN();
+            String query;
+            if (isMerchant){
+                query = "SELECT * FROM sys.ORDER WHERE UserName_Merchant = '" + userName + "' ORDER BY CreatedDate DESC";
+            }
+            else{
+                query = "SELECT * FROM sys.ORDER WHERE UserName_Customer = '" + userName + "' ORDER BY CreatedDate DESC";
+            }
+            Statement stmt = con.prepareStatement(query);
+            ResultSet result = stmt.executeQuery(query);
+            while (result.next()){
+                String customerName = result.getString("UserName_Customer");
+                String merchantName = result.getString("UserName_Merchant");
+                String createdDate = result.getString("CreatedDate");
+                String createdTime = result.getString("CreatedTime");
+                String deliveredDate = result.getString("DeliveredDate");
+                String deliveredTime = result.getString("DeliveredTime");
+                DeliveryRoute route = new DeliveryRoute(merchantName,customerName,createdDate,createdTime,deliveredDate,deliveredTime);
+                ArrayList<Item> orderedItems = new ArrayList<>();
+                Order o = new Order(orderedItems,route);
+                orders.add(o);
+                orderIDList.add(result.getInt("OrderID"));
+            }
+
+            for (int i = 0; i < orderIDList.size(); i++){
+                String query1;
+                if (isMerchant){
+                    query1 = "SELECT O.OrderID, O.UserName_Customer, O.UserName_Merchant, O.CreatedDate, " +
+                            "O.CreatedTime, O.DeliveredDate, O.DeliveredTime, M.ItemName, M.ItemPrice, " +
+                            "I.Quantity, M.ItemCaffeineAmount FROM sys.ORDER O, ITEMS_IN_ORDER I, MENU M " +
+                            "WHERE O.OrderID = I.OrderID AND M.ItemID = I.ItemID AND UserName_Merchant = '" +
+                            userName + "' AND O.OrderID = " + orderIDList.get(i);
+                }
+                else{
+                    query1 = "SELECT O.OrderID, O.UserName_Customer, O.UserName_Merchant, O.CreatedDate, " +
+                            "O.CreatedTime, O.DeliveredDate, O.DeliveredTime, M.ItemName, M.ItemPrice, " +
+                            "I.Quantity, M.ItemCaffeineAmount FROM sys.ORDER O, ITEMS_IN_ORDER I, MENU M " +
+                            "WHERE O.OrderID = I.OrderID AND M.ItemID = I.ItemID AND UserName_Customer = '" +
+                            userName + "' AND O.OrderID = " + orderIDList.get(i);
+                }
+                Statement stmt1 = con.prepareStatement(query1);
+                ResultSet result1 = stmt.executeQuery(query1);
+                while (result1.next()){
+                    String itemName = result1.getString("ItemName");
+                    Float itemPrice = result1.getFloat("ItemPrice");
+                    Integer itemQty = result1.getInt("Quantity");
+                    Integer itemCaffeine = result1.getInt("ItemCaffeineAmount");
+                    Item item = new Item(itemName, itemPrice, itemQty, itemCaffeine);
+                    orders.get(i).addOrderItem(item);
+                }
+            }
+
+        }
+        catch (SQLException se)
+        {
+            Log.e("ERROR", se.getMessage());
+        }
+        return orders;
+    }
+
     public Boolean checkCaffeineUpdate(String date, Customer customer) {
         Boolean returnValue;
         try
         {
             Connection con = CONN();
-            String query = "SELECT * FROM ORDER WHERE UserName_Customer = '" + customer.getUsrName() + "' AND CreatedDate = '" + date + "'";
+            String query = "SELECT * FROM sys.ORDER WHERE UserName_Customer = '" + customer.getUsrName() + "' AND CreatedDate = '" + date + "'";
             Statement stmt = con.prepareStatement(query);
             ResultSet result = stmt.executeQuery(query);
             if (result.next()) {

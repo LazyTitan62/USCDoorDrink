@@ -15,12 +15,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
     private Customer customer;
+    private String merchantName;
+    private boolean updateCaffeine = false;
     private RecyclerView checkoutRecyclerView;
     private TextView orderTotal, orderTotalAmount, buttonPlaceOrder, caffineIntakeSummary;
     private CheckoutCardAdapter checkoutCardAdapter;
@@ -32,7 +35,7 @@ public class CheckoutActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-                    customer.resetCaffeineIntake();
+                    updateCaffeineIntake();
                     break;
             }
         }
@@ -43,13 +46,22 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        Merchant  merchant= (Merchant) getIntent().getSerializableExtra("Merchant");
+        // Merchant  merchant= (Merchant) getIntent().getSerializableExtra("Merchant");
+        merchantName = getIntent().getStringExtra("MerchantName");
         customer = (Customer) getIntent().getSerializableExtra("Customer");
-        ArrayList<Item> menu = customer.getCurrCart();
+
+        LocalDate dateObj = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = dateObj.format(formatter);
+        new Thread(() -> {
+            Query q = new Query();
+            if (q.checkCaffeineUpdate(date,customer)){
+                handler.sendEmptyMessage(0);
+            }
+        }).start();
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(merchant.getUsrName());
-        actionBar.setSubtitle(String.valueOf(merchant.getStoreLocLatitude()) + " " + String.valueOf(merchant.getStoreLocLongitude()));
+        actionBar.setTitle(merchantName);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         checkoutRecyclerView = findViewById(R.id.checkoutRecyclerView);
@@ -58,20 +70,12 @@ public class CheckoutActivity extends AppCompatActivity {
         buttonPlaceOrder = findViewById(R.id.buttonPlaceOrder);
         caffineIntakeSummary = findViewById(R.id.tvCaffineIntake);
 
+
         Integer caffeine = calculateTotalCaffeineAmount(customer);
         buttonPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocalDate dateObj = LocalDate.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                String date = dateObj.format(formatter);
-                new Thread(() -> {
-                    Query q = new Query();
-                    if (q.checkCaffeineUpdate(date,customer)){
-                        handler.sendEmptyMessage(0);
-                    }
-                }).start();
-                onPlaceOrderButtonClick(merchant, customer, caffeine);
+                onPlaceOrderButtonClick(caffeine);
             }
         });
 
@@ -87,15 +91,24 @@ public class CheckoutActivity extends AppCompatActivity {
         checkoutRecyclerView.setAdapter(checkoutCardAdapter);
     }
 
+    private void updateCaffeineIntake(){
+        updateCaffeine = true;
+    }
     private void calculateTotalAmount(Customer customer) {
         Float totalAmount = 0f;
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
         for(Item i : customer.getCurrCart()) {
             totalAmount += i.getItemPrice() * i.getItemQtyInOrder();
+            totalAmount = Float.parseFloat(df.format(totalAmount));
         }
         orderTotalAmount.setText("$ " + String.format("%.2f", totalAmount));
     }
 
     private Integer calculateTotalCaffeineAmount(Customer customer) {
+        if (updateCaffeine){
+            customer.resetCaffeineIntake();
+        }
         Integer totalCaffeineAmount = 0;
         for(Item i : customer.getCurrCart()) {
             totalCaffeineAmount += i.getItemCaffeine() * i.getItemQtyInOrder();
@@ -108,7 +121,7 @@ public class CheckoutActivity extends AppCompatActivity {
         return totalCaffeineAmount;
     }
 
-    private void onPlaceOrderButtonClick(Merchant merchant, Customer customer, Integer totalCaffineInCart) {
+    private void onPlaceOrderButtonClick(Integer totalCaffineInCart) {
         if (customer.getCaffeineIntake() + totalCaffineInCart > USDA_CAFFEINE){
             if (!waringIgnored) {
                 Toast.makeText(CheckoutActivity.this, "TOO MUCH CAFFEINE TODAY!\nPlease stay at this page and retry if you still want to proceed.", Toast.LENGTH_SHORT).show();
@@ -117,7 +130,7 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         }
         Toast.makeText(CheckoutActivity.this, "Order Successfully Placed!", Toast.LENGTH_LONG).show();
-        Order order = customer.checkout(merchant,customer);
+        Order order = customer.checkout(merchantName,customer);
         //TODO：INSERT INTO DATABASE
         Intent i = new Intent(CheckoutActivity.this, MapsActivity.class);
         startActivity(i);

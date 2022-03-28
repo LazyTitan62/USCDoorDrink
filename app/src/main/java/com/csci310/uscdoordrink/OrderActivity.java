@@ -6,34 +6,59 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 
 import java.util.ArrayList;
 
 public class OrderActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private OrderCardAdapter adapter;
-    private ArrayList<Order> ordersArrayList;
+    private ArrayList<Order> ordersArrayList = new ArrayList<>();
+    private String userName;
+    private Boolean isMerchant;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    InitializeOrderCardView();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        // getIntent()
+        userName = "BobaTime";
+        isMerchant = true;
+
+
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Your Order Histories");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        InitializeOrderCardView();
+
+        new Thread(() -> {
+            Query q = new Query();
+            ordersArrayList.addAll(q.getOrderFromDatabase(userName, isMerchant));
+            handler.sendEmptyMessage(0);
+
+        }).start();
     }
 
     private void InitializeOrderCardView() {
         recyclerView = findViewById(R.id.order_hist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ordersArrayList = new ArrayList<Order>();
-
         adapter = new OrderCardAdapter(this,ordersArrayList);
         recyclerView.setAdapter(adapter);
 
-        CreateDataForCards();
+        //CreateDataForCards();
     }
 
     private void CreateDataForCards() {

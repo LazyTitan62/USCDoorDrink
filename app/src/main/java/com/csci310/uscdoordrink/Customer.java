@@ -60,7 +60,7 @@ public class Customer extends User implements Serializable {
         currCart.clear();
     }
 
-    public Order checkout(Merchant merchant, Customer customer) {
+    public Order checkout(String merchantName, Customer customer) {
 
         // TODO: GET CUSTOMER LOCATION
         LocalDate dateObj = LocalDate.now();
@@ -73,16 +73,10 @@ public class Customer extends User implements Serializable {
 
         // TODO: GET ORDER CREATED DATE AND TIME
         String deliveredDate = "";
-
         String deliveredTime = "";
-        Float merchLocLatitude = merchant.getStoreLocLatitude();
-        Float merchLocLongitude = merchant.getStoreLocLongitude();
-        Float cusLocLatitude = 0f;
-        Float cusLocLongitude = 0f;
-        DeliveryRoute route = new DeliveryRoute(merchant.getUsrName(), customer.getUsrName(), createdDate, createdTime,deliveredDate,deliveredTime);
+
+        DeliveryRoute route = new DeliveryRoute(merchantName, customer.getUsrName(), createdDate, createdTime,deliveredDate,deliveredTime);
         Order order = new Order(currCart,route);
-        merchant.addMerchantOrder(order);
-        customer.addCustomerOrder(order);
         customer.setCaffeineIntake(caffeineIntake+order.getTotalCaffeine());
         emptyCart();
         return order;

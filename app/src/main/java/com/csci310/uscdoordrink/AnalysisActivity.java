@@ -17,6 +17,9 @@ import android.view.View;
 import com.csci310.uscdoordrink.ui.main.SectionsPagerAdapter;
 import com.csci310.uscdoordrink.databinding.ActivityAnalysisBinding;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class AnalysisActivity extends AppCompatActivity {
 
     private ActivityAnalysisBinding binding;
@@ -28,9 +31,11 @@ public class AnalysisActivity extends AppCompatActivity {
         binding = ActivityAnalysisBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //TODO: getIntent()
+        //TODO: getIntent() for username
         String username = "Lily";
-        String date = "2022-03-22";
+        LocalDate dateObj = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = dateObj.format(formatter);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),username,date);
         ViewPager viewPager = binding.viewPager;

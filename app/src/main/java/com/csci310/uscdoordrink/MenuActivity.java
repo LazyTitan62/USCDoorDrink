@@ -45,10 +45,10 @@ public class MenuActivity extends AppCompatActivity implements MenuCardAdapter.M
         // Customer customer = (Customer) getIntent().getSerializableExtra("Customer");
         // Boolean isUserMerchant = getIntent().getExtras().getBoolean("IsUserMerchant");
 
-        Merchant merchant = new Merchant("OhYeah","123456",10.10f,20.20f);
+        Merchant merchant = new Merchant("BobaTime","123456",10.10f,20.20f);
         new Thread(() -> {
             Query in = new Query();
-            menuList.addAll(in.getMenuFromDatabase(merchant));
+            menuList.addAll(in.getMenuFromDatabase(merchant.getUsrName()));
             merchant.setMenu(menuList);
             handler.sendEmptyMessage(0);
 
@@ -60,9 +60,7 @@ public class MenuActivity extends AppCompatActivity implements MenuCardAdapter.M
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        Customer customer = new Customer("Redekopp", "123456", 300);
-        Boolean isUserMerchant = true;
-
+        Customer customer = new Customer("Lily", "123456", 300);
         buttonCheckout = findViewById(R.id.buttonCheckout);
         buttonCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,9 +71,8 @@ public class MenuActivity extends AppCompatActivity implements MenuCardAdapter.M
                 }
                 customer.setCurrCart(itemsInCart);
                 Intent i = new Intent(MenuActivity.this, CheckoutActivity.class);
-                i.putExtra("Merchant", merchant);
+                i.putExtra("MerchantName", merchant.getUsrName());
                 i.putExtra("Customer", customer);
-                i.putExtra("IsUserMerchant",isUserMerchant);
                 //startActivityForResult(i, 1000);
                 startActivity(i);
             }
