@@ -8,4 +8,6 @@
         android:text="Daily"
         android:textSize="30sp" />
 
+
+
 </LinearLayout>

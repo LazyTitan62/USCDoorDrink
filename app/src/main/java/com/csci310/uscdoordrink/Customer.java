@@ -72,6 +72,7 @@ public class Customer extends User implements Serializable {
         Order order = new Order(currCart,route);
         merchant.addMerchantOrder(order);
         customer.addCustomerOrder(order);
+        customer.setCaffeineIntake(caffeineIntake+order.getTotalCaffeine());
         emptyCart();
         return order;
     }
