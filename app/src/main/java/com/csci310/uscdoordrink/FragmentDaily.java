@@ -1,6 +1,8 @@
 package com.csci310.uscdoordrink;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,40 +24,81 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FragmentDaily extends Fragment {
+    private String userName;
+    private String date;
+    private BarChart chart;
+    private ArrayList<String> xVals = new ArrayList<>();
+    private ArrayList<BarEntry> yVals = new ArrayList<>();
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    setChart(chart);
+                    break;
+            }
+        }
+    };
+
+    public FragmentDaily (String userName, String date){
+        super();
+        this.userName = userName;
+        this.date = date;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragement_daily_layout,container, false);
-        BarChart chart = (BarChart) view.findViewById(R.id.DailyBarChart);
+        chart = (BarChart) view.findViewById(R.id.DailyBarChart);
         chart.getDescription().setText("Your spending today");
+        new Thread(() -> {
+            Query q = new Query();
+            HashMap<String, Float> hm = q.getDailyAnalysis(userName,date);
+            int i = 0;
+            for (Map.Entry<String, Float> set : hm.entrySet()) {
+                xVals.add(set.getKey());
+                yVals.add(new BarEntry(i,set.getValue()));
+                i++;
+            }
+            handler.sendEmptyMessage(0);
 
-        ArrayList<String> xVals = new ArrayList<>();
-        xVals.add("Jan");
-        xVals.add("Feb");
-        xVals.add("Mar");
-        xVals.add("Apr");
-        xVals.add("May");
-        xVals.add("Jun");
-        xVals.add("Jul");
+        }).start();
 
-        ArrayList yVals1 = new ArrayList();
-        yVals1.add(new BarEntry(0, 100));
-        yVals1.add(new BarEntry(1, 300));
-        yVals1.add(new BarEntry(2, 500));
-        yVals1.add(new BarEntry(3, 700));
-        yVals1.add(new BarEntry(4, 900));
-        yVals1.add(new BarEntry(5, 1100));
-        yVals1.add(new BarEntry(6, 900));
 
-        BarDataSet set1;
-        set1 = new BarDataSet(yVals1, "Merchant");
-        set1.setColors(ColorTemplate.COLORFUL_COLORS);
-        set1.setValueTextColor(Color.BLACK);
-        set1.setValueTextSize(12f);
-        BarData data = new BarData(set1);
+//        xVals.add("Jan");
+//        xVals.add("Feb");
+//        xVals.add("Mar");
+//        xVals.add("Apr");
+//        xVals.add("May");
+//        xVals.add("Jun");
+//        xVals.add("Jul");
+//
+//
+//        yVals.add(new BarEntry(0, 100));
+//        yVals.add(new BarEntry(1, 300));
+//        yVals.add(new BarEntry(2, 500));
+//        yVals.add(new BarEntry(3, 700));
+//        yVals.add(new BarEntry(4, 900));
+//        yVals.add(new BarEntry(5, 1100));
+//        yVals.add(new BarEntry(6, 900));
+
+        return view;
+    }
+
+    public void setChart(BarChart chart){
+        BarDataSet set;
+        set = new BarDataSet(yVals, "Merchant");
+        set.setColors(ColorTemplate.COLORFUL_COLORS);
+        set.setValueTextColor(Color.BLACK);
+        set.setValueTextSize(12f);
+        BarData data = new BarData(set);
         chart.setFitBars(true);
         chart.setData(data);
         chart.animateY(2000);
@@ -75,7 +118,5 @@ public class FragmentDaily extends Fragment {
         leftAxis.setDrawGridLines(true);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
-
-        return view;
     }
 }

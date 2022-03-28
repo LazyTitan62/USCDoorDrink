@@ -18,14 +18,17 @@ import com.csci310.uscdoordrink.FragmentWeekly;
  * one of the sections/tabs/pages.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
+    private String userName;
+    private String date;
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_daily, R.string.tab_weekly,R.string.tab_monthly};
     private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm, String userName, String date) {
         super(fm);
         mContext = context;
+        this.userName = userName;
+        this.date = date;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch(position){
             case 0:
-                fragment = new FragmentDaily();
+                fragment = new FragmentDaily(userName, date);
                 break;
             case 1:
                 fragment = new FragmentWeekly();

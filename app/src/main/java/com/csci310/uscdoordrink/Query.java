@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Query {
 //    Connection connection;
@@ -61,5 +62,25 @@ public class Query {
             Log.e("ERROR", se.getMessage());
         }
         return true;
+    }
+
+    public HashMap<String,Float> getDailyAnalysis(String userName, String date) {
+        HashMap<String,Float> hm = new HashMap<>();
+        try
+        {
+            Connection con = CONN();
+
+            String query = "SELECT UserName_Merchant, ROUND(SUM(totalPrice), 2) AS Sum FROM sys.ORDER WHERE UserName_Customer = '" + userName + "' AND CreatedDate = '" + date + "' GROUP BY UserName_Merchant";
+            Statement stmt = con.prepareStatement(query);
+            ResultSet result = stmt.executeQuery(query);
+            while (result.next()) {
+                hm.put(result.getString("UserName_Merchant"), result.getFloat("Sum"));
+            }
+        }
+        catch (SQLException se)
+        {
+            Log.e("ERROR", se.getMessage());
+        }
+        return hm;
     }
 }

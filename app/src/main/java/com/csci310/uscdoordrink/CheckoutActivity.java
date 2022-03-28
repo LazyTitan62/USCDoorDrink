@@ -114,6 +114,7 @@ public class CheckoutActivity extends AppCompatActivity {
         }
         Toast.makeText(CheckoutActivity.this, "Order Successfully Placed!", Toast.LENGTH_LONG).show();
         Order order = customer.checkout(merchant,customer);
+        //TODO：INSERT INTO DATABASE
         Intent i = new Intent(CheckoutActivity.this, MapsActivity.class);
         startActivity(i);
     }
