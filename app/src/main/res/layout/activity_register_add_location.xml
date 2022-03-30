@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EnterLocation"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_shop_loc"
+        android:layout_marginTop="200dp"
+        android:textSize="17sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="80dp">
+
+        <EditText
+            android:id="@+id/Latitude"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:gravity="center_horizontal"
+            android:ellipsize="start"
+            android:hint="@string/latitude" />
+
+        <EditText
+            android:id="@+id/Longitude"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/Latitude"
+            android:gravity="center_horizontal"
+            android:ellipsize="start"
+            android:hint="@string/longitude" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="80dp">
+        <Button
+            android:id="@+id/submit_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/submit" />
+    </RelativeLayout>
+
+
+</LinearLayout >

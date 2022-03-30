@@ -1,4 +1,31 @@
 <resources>
     <string name="app_name">USCDoorDrink</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="log_in">LOG IN</string>
+    <string name="register_new_account">REGISTER NEW ACCOUNT</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="login_success">Login Success!</string>
+    <string name="register">REGISTER</string>
+    <string name="register_success">Register Success</string>
+    <string name="i_am_a_merchant">I am a merchant</string>
+    <string name="click_add_to_add_items_to_your_menu"><font size="20">Click \'Add\' to add items to your menu</font></string>
+    <string name="name"><font size="15">Name</font></string>
+    <string name="price"><font size="15">Price</font></string>
+    <string name="caffeine"><font size="15">Caffeine</font></string>
+    <string name="submit">Submit</string>
+    <string name="map_api">AIzaSyAPLYER1TPpF9RSypNubp_yz6TzCG5hogk</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="enter_shop_loc">Please enter the location of your shop in terms of latitude and longitude</string>
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
+    <string name="map">Map</string>
+    <string name="title_activity_analysis">analysisActivity</string>
+    <string name="analysis_page_name">USCDoorDrink - Spending Analysis</string>
+    <string name="order_page_name">Your Order Histories</string>
+    <string name="tab_daily">Daily</string>
+    <string name="tab_weekly">Weekly</string>
+    <string name="tab_monthly">Monthly</string>
+
 </resources>
