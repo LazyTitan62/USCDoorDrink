@@ -196,15 +196,15 @@ public class MapsActivity extends AppCompatActivity
         //--------------------------------------------
 
 
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-        }
+//        if (mLocationPermissionsGranted) {
+//            getDeviceLocation();
+//
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                return;
+//            }
+//        }
     }
 
 
@@ -264,65 +264,65 @@ public class MapsActivity extends AppCompatActivity
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
         try {
 
-                if (mLocationPermissionsGranted) {
+            if (mLocationPermissionsGranted) {
 
-                        mFusedLocationProviderClient.getLastLocation()
-                                .addOnSuccessListener(this, location -> {
-                                    // Got last known location. In some rare situations this can be null.
-                                    if (location != null) {
-                                        // Logic to handle location object
-                                        currentLocation = location;
+                mFusedLocationProviderClient.getLastLocation()
+                        .addOnSuccessListener(this, location -> {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                currentLocation = location;
 
-                                        try {
+                                try {
 
-                                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                                    DEFAULT_ZOOM);
-                                        }
-                                        catch(IllegalStateException e)
-                                        {
-                                            LatLng village=new LatLng(34.0202,-118.2837);
-                                            moveCamera(village,15f);
-                                        }
-                                        catch(Exception e)
-                                        {
-                                            LatLng village=new LatLng(34.0202,-118.2837);
-                                            moveCamera(village,15f);
-                                        }
-                                        getMerchantFromDataBase();
-
-
-
-                                    } else {
-                                        Log.d(TAG, "onComplete: current location is null");
-                                        Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                    }
-                    //                @SuppressLint("MissingPermission")
-                    //                final Task location = mFusedLocationProviderClient.getLastLocation();
-                    //                location.addOnCompleteListener(new OnCompleteListener() {
-                    //                    @Override
-                    //                    public void onComplete(@NonNull Task task) {
-                    //                        if(task.isSuccessful()&& task.getResult() != null){
-                    //                            Log.d(TAG, "onComplete: found location!");
-                    //                                currentLocation = (Location) task.getResult();
-                    //
-                    //                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                    //                                    DEFAULT_ZOOM
-                    //                                    );
-                    //
-                    //                        }
-                    //                        else{
-                    //                            Log.d(TAG, "onComplete: current location is null");
-                    //                            Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
-                    //                        }
-                    //                    }
-                    //                });
+                                    moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                            DEFAULT_ZOOM);
+                                }
+                                catch(IllegalStateException e)
+                                {
+                                    LatLng village=new LatLng(34.0202,-118.2837);
+                                    moveCamera(village,15f);
+                                }
+                                catch(Exception e)
+                                {
+                                    LatLng village=new LatLng(34.0202,-118.2837);
+                                    moveCamera(village,15f);
+                                }
+                                getMerchantFromDataBase();
 
 
-            } catch (SecurityException e) {
-                Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
+
+                            } else {
+                                Log.d(TAG, "onComplete: current location is null");
+                                Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_LONG).show();
+                            }
+                        });
             }
+            //                @SuppressLint("MissingPermission")
+            //                final Task location = mFusedLocationProviderClient.getLastLocation();
+            //                location.addOnCompleteListener(new OnCompleteListener() {
+            //                    @Override
+            //                    public void onComplete(@NonNull Task task) {
+            //                        if(task.isSuccessful()&& task.getResult() != null){
+            //                            Log.d(TAG, "onComplete: found location!");
+            //                                currentLocation = (Location) task.getResult();
+            //
+            //                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+            //                                    DEFAULT_ZOOM
+            //                                    );
+            //
+            //                        }
+            //                        else{
+            //                            Log.d(TAG, "onComplete: current location is null");
+            //                            Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+            //                        }
+            //                    }
+            //                });
+
+
+        } catch (SecurityException e) {
+            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
+        }
 
     }
 
@@ -345,14 +345,14 @@ public class MapsActivity extends AppCompatActivity
         // Set the map coordinates to USC.
         // Set the map coordinates to Kyoto Japan.
         //map = googleMap;
-//        if (mLocationPermissionsGranted) {
-//            getDeviceLocation();
-//
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-//                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                return;
-//            }
+        if (mLocationPermissionsGranted) {
+            getDeviceLocation();
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
             map.setMyLocationEnabled(true);
             map.setOnMyLocationButtonClickListener(this);
             map.setOnMyLocationClickListener(this);
@@ -360,10 +360,10 @@ public class MapsActivity extends AppCompatActivity
 
 
 
-        //}
+            //}
 //        map.addMarker(place1);
 //        map.addMarker(place2);
-        map.setOnMarkerClickListener(this);
+            map.setOnMarkerClickListener(this);
 //        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 //        Location myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        //Location myLocation= LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
@@ -371,8 +371,8 @@ public class MapsActivity extends AppCompatActivity
 //                myLocation.getLongitude());
 //        map.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
 //        // Set the map type to Hybrid.
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        // Add a marker on the map coordinates.
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            // Add a marker on the map coordinates.
 //        String snippet = "";
 ////        map.addMarker(new MarkerOptions()
 ////                .position(kyoto)
@@ -381,10 +381,10 @@ public class MapsActivity extends AppCompatActivity
 //        markervillage = map.addMarker(new MarkerOptions().position(village).title("village").snippet(snippet));
 //        markervillage.setTag(0);
 //        map.moveCamera(CameraUpdateFactory.zoomTo(14));
-        // Display traffic.
-        map.setTrafficEnabled(true);
+            // Display traffic.
+            map.setTrafficEnabled(true);
 
-
+        }
 //        map.setOnMyLocationButtonClickListener(this);
 //        map.setOnMyLocationClickListener(this);
 //        enableMyLocation();
@@ -684,11 +684,11 @@ public class MapsActivity extends AppCompatActivity
     public void addMarker()
     {
 
-                        for(int i=0;i<markerOptionList.size();i++)
-                        {
-                            System.out.println("markerhere "+markerOptionList.get(i).getTitle());
-                            map.addMarker(markerOptionList.get(i));
-                        }
+        for(int i=0;i<markerOptionList.size();i++)
+        {
+            System.out.println("markerhere "+markerOptionList.get(i).getTitle());
+            map.addMarker(markerOptionList.get(i));
+        }
     }
 
 
@@ -710,4 +710,3 @@ public class MapsActivity extends AppCompatActivity
 
     }
 }
-

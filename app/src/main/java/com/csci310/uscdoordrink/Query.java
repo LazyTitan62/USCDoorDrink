@@ -197,7 +197,7 @@ public class Query {
         {
             Connection con = CONN();
             String query = "UPDATE sys.CUSTOMER SET CaffeineIntake = CaffeineIntake + " + change +
-                    " WHERE UserName = 'Lily'";
+                    " WHERE UserName = '" + customerName + "'";
             System.out.println("queryis "+query);
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
